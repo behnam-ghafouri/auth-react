@@ -4,10 +4,12 @@ import { history } from './_helpers';
 import { Nav, PrivateRoute } from './_components';
 import { Home } from './home';
 import { Login } from './login';
+import { useSelector, useDispatch } from 'react-redux';
 
 export { App };
 
 function App() {
+    
     // init custom history object to allow navigation from 
     // anywhere in the react app (inside or outside components)
     history.navigate = useNavigate();
@@ -18,14 +20,14 @@ function App() {
             <Nav />
             <div className="container pt-4 pb-4">
                 <Routes>
-                <Route
-                        path="/"
-                        element={
-                            <PrivateRoute>
-                                <Home />
-                            </PrivateRoute>
-                        }
-                    />
+                    <Route
+                            path="/"
+                            element={
+                                <PrivateRoute>
+                                    <Home />
+                                </PrivateRoute>
+                            }
+                        />
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>

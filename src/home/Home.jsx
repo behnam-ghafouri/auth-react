@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import { userActions } from '../_store';
+import jwtDecode from 'jwt-decode';
+import { userActions, setRoles } from '../_store';
 
 export { Home };
 
@@ -9,16 +9,18 @@ function Home() {
     const dispatch = useDispatch();
     const { user: authUser } = useSelector(x => x.auth);
     const { users } = useSelector(x => x.users);
-
+    const _roles  = useSelector(x => x.roles.roles);
     useEffect(() => {
-        dispatch(userActions.getAll());
-        
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        const decodedToken = jwtDecode(authUser?.accessToken);
+        const userRoles = decodedToken?.roles?.map(e=>e.authority);
+        console.log('userRoles',userRoles)
+        dispatch(setRoles(userRoles));
+        console.log(_roles)
     }, []);
 
     return (
         <div>
-            <h1>Hi {authUser?.firstName}!</h1>
+            <h1>Hi {_roles?.toString()}!</h1>
             <p>You're logged in with React 18 + Redux & JWT!!</p>
             <h3>Users from secure api end point:</h3>
             {users.length &&

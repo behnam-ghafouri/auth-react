@@ -15,9 +15,13 @@ function Nav() {
     
     return (
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <div className="navbar-nav">
-                <NavLink to="/" className="nav-item nav-link">Home</NavLink>
+            <div className="navbar-nav d-flex w-100">
+                <div className="mr-auto">
+                <NavLink to="/" className="nav-item nav-link mr-auto">Home</NavLink>
+                </div>
+                <div>
                 <button onClick={logout} className="btn btn-link nav-item nav-link">Logout</button>
+                </div>
             </div>
         </nav>
     );

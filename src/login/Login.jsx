@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -13,8 +13,7 @@ function Login() {
     const dispatch = useDispatch();
     const authUser = useSelector(x => x.auth.user);
     const authError = useSelector(x => x.auth.error);
-    const jsonObject = useSelector(x => x.auth.jsonObject)
-
+    const [isSignin, setIsSignin] = useState(true);
     useEffect(() => {
         // redirect to home if already logged in
         if (authUser) history.navigate('/');
@@ -33,22 +32,17 @@ function Login() {
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
-    function onSubmit({ username, password }) {
-
-        console.log('submit')
-        dispatch(authActions.jsonP(45))
-
-       // return dispatch(authActions.login({ username, password }));
+    function onSubmit({ username, role, email, password }) {
+       return isSignin ? dispatch(authActions.signin({ username, role:[role] , email, password })) : dispatch(authActions.signup({ username, role:[role] , email, password }));
     }
+    const roleOptions = ['admin', 'moderator', 'user']; // List of role options
 
     return (
         <div className="col-md-6 offset-md-3 mt-5">
-            <div className="alert alert-info">
-                Username: test<br />
-                Password: test
-            </div>
             <div className="card">
-                <h4 className="card-header">Login</h4>
+                <h4 className="card-header d-flex"  >   
+                    <span className='mr-auto'>{isSignin ? 'Sign in' : 'Sign up'}</span>
+                    <span className='small' onClick={()=>setIsSignin(!isSignin)}>{!isSignin ? 'Sign in' : 'Sign up'}</span></h4>
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
@@ -57,19 +51,35 @@ function Login() {
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
                         <div className="form-group">
+                            <label>Email</label>
+                            <input name="email" type="email" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} />
+                            <div className="invalid-feedback">{errors.email?.message}</div>
+                        </div>
+                        {!isSignin && (
+                            <div className="form-group">
+                            <label>Role</label>
+                            <select name="role" {...register('role')} className={`form-control ${errors.role ? 'is-invalid' : ''}`}>
+                            {roleOptions.map((roleOption) => (
+                                    <option key={roleOption} value={roleOption}>
+                                        {roleOption}
+                                    </option>
+                                ))}
+                            </select>
+                            {/* <input name="role" type="text" {...register('role')} className={`form-control ${errors.role ? 'is-invalid' : ''}`} />
+                            <div className="invalid-feedback">{errors.role?.message}</div> */}
+                            </div>
+                        )}
+                        <div className="form-group">
                             <label>Password</label>
                             <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
                         <button disabled={isSubmitting} className="btn btn-primary">
                             {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Login
+                            {isSignin ? 'Sign in' : 'Sign up'}
                         </button>
                         {authError &&
                             <div className="alert alert-danger mt-3 mb-0">{authError.message}</div>
-                        }
-                        {jsonObject &&
-                            <div className="alert alert-danger mt-3 mb-0">{JSON.stringify(jsonObject)}</div>
                         }
                     </form>
                 </div>
