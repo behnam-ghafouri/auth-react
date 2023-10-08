@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import jwtDecode from 'jwt-decode';
-import { userActions, setRoles } from '../_store';
+import { setRoles } from '../_store';
 
 export { Home };
 
@@ -13,9 +13,7 @@ function Home() {
     useEffect(() => {
         const decodedToken = jwtDecode(authUser?.accessToken);
         const userRoles = decodedToken?.roles?.map(e=>e.authority);
-        console.log('userRoles',userRoles)
         dispatch(setRoles(userRoles));
-        console.log(_roles)
     }, []);
 
     return (
