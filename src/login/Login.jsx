@@ -11,8 +11,8 @@ export { Login };
 
 function Login() {
     const dispatch = useDispatch();
-    const authUser = useSelector(x => x.auth.user);
-    const authError = useSelector(x => x.auth.error);
+    const authUser = useSelector(state => state.auth.user);
+    const authError = useSelector(state => state.auth.error);
     const [isSignin, setIsSignin] = useState(true);
     useEffect(() => {
         // redirect to home if already logged in

@@ -39,7 +39,7 @@ function createReducers() {
 };
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}`;
 
     return {
         signin: signin(),
@@ -49,14 +49,14 @@ function createExtraActions() {
     function signin() {
         return createAsyncThunk(
             `${name}/signin`,
-            async ({ username, role, email, password }) => await fetchWrapper.post(`http://localhost:8080/api/auth/signin`, { username, role, email, password })
+            async ({ username, role, email, password }) => await fetchWrapper.post(`${baseUrl}/api/auth/signin`, { username, role, email, password })
         )
     };
 
     function signup() {
         return createAsyncThunk(
             `${name}/signup`,
-            async ({ username, role, email, password }) => await fetchWrapper.post(`http://localhost:8080/api/auth/signup`, { username, role, email, password })
+            async ({ username, role, email, password }) => await fetchWrapper.post(`${baseUrl}/api/auth/signup`, { username, role, email, password })
         )
     };
 

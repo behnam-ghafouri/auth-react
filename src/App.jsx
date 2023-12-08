@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-
 import { history } from './_helpers';
 import { Nav, PrivateRoute } from './_components';
 import { Home } from './home';
+import { students } from './students';
 import { Login } from './login';
-import { useSelector, useDispatch } from 'react-redux';
+import { Students } from './students/Students';
 
 export { App };
 
@@ -27,7 +27,15 @@ function App() {
                                     <Home />
                                 </PrivateRoute>
                             }
-                        />
+                    />
+                    <Route
+                            path="/students"
+                            element={
+                                <PrivateRoute>
+                                    <Students />
+                                </PrivateRoute>
+                            }
+                    />
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
