@@ -1,0 +1,21 @@
+# deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-react
+spec:
+  replicas: 1 # Number of replicas (pods) to run
+  selector:
+    matchLabels:
+      app: auth-react
+  template:
+    metadata:
+      labels:
+        app: auth-react
+    spec:
+      containers:
+        - name: auth-react
+          image: behnamghafouri/auth-react:latest # Replace with your Docker image
+          ports:
+            - containerPort: 80
