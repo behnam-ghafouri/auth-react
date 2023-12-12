@@ -21,3 +21,9 @@ jobs:
 
       - name: Push Docker Image to Docker Hub
         run: docker push behnamghafouri/auth-react:latest
+
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+          version: 'v1.24.9'
