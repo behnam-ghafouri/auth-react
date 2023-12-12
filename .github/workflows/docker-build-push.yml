@@ -12,14 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up kubectl
-        uses: azure/k8s-set-context@v1
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-          
-      - name: see kubectl version
-        run: kubectl apply -f deployment.yaml
           
       - name: Login to Docker Hub
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
@@ -29,5 +21,16 @@ jobs:
 
       - name: Push Docker Image to Docker Hub
         run: docker push behnamghafouri/auth-react:latest
+
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
+      - name: setup service
+        run: kubectl apply -f service.yaml
+          
+      - name: deploy to cluster
+        run: kubectl apply -f deployment.yaml
 
 
