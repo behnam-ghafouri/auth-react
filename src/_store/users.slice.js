@@ -23,11 +23,11 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/users`;
 
     return {
         getAll: getAll()
-    };    
+    };
 
     function getAll() {
         return createAsyncThunk(
