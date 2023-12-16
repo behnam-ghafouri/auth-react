@@ -11,9 +11,11 @@ function Home() {
     const { users } = useSelector(x => x.users);
     const _roles  = useSelector(x => x.roles.roles);
     useEffect(() => {
-        const decodedToken = jwtDecode(authUser?.accessToken);
-        const userRoles = decodedToken?.roles?.map(e=>e.authority);
-        dispatch(setRoles(userRoles));
+        if(authUser?.accessToken){
+            const decodedToken = jwtDecode(authUser?.accessToken);
+            const userRoles = decodedToken?.roles?.map(e=>e.authority);
+            dispatch(setRoles(userRoles));
+        }
     }, []);
 
     return (
