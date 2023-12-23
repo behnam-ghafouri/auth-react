@@ -1,0 +1,32 @@
+.active {
+    color: red;
+}
+
+.sactive {
+    color: darkgreen;
+}
+
+li:hover {
+ cursor: pointer;
+}
+
+.big {
+    font-size: 32px;
+}
+
+.subcategory {
+    font-size: 12px;
+}
+
+.coffee-bg {
+    background-image: url(../../public/images/background-roasted.jpg);
+}
+
+.fullscr {
+    height: 100vh;
+}
+
+.card {
+    max-height: 500px;
+    background-color: lightgrey;
+}

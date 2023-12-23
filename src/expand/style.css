@@ -1,0 +1,12 @@
+.active {
+    color: red;
+}
+
+li:hover {
+ cursor: pointer;
+}
+
+.big {
+    font-size: 32px;
+}
+

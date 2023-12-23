@@ -9,6 +9,7 @@ import { history } from "./_helpers";
 import { Nav, PrivateRoute } from "./_components";
 import { Home } from "./home";
 import { Products } from "./products";
+import { Expand } from "./expand";
 import { Login } from "./login";
 import { Students } from "./students";
 
@@ -23,7 +24,7 @@ function App() {
   return (
     <div className="app-container bg-light">
       <Nav />
-      <div className="container pt-4 pb-4">
+      <div className="container-fluid">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
