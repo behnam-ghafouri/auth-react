@@ -17,6 +17,8 @@ function Login() {
   const [isSignin, setIsSignin] = useState(null);
 
   useEffect(() => {
+
+    fetch("/api/student/all").then(e => console.log(e))
     // redirect to home if already logged in
     if (authUser) history.navigate("/");
 
